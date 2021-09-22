@@ -32,7 +32,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','camerjobs.herokuapp.com']
 
 
 # Application definition
