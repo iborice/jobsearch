@@ -18,10 +18,6 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 
-if os.environ.get('ENV') == 'PRODUCTION':
-    # ...
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
@@ -113,6 +109,10 @@ DATABASES = {
     }
 }
 
+if os.environ.get('ENV') == 'PRODUCTION':
+    # ...
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
