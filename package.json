@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "webpack-bundle-tracker": "^1.1.0",
+    "write-file-webpack-plugin": "^4.5.1"
+  }
+}

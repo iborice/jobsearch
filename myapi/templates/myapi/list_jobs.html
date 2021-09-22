@@ -1,0 +1,277 @@
+{% extends "main.html" %}
+
+{% block FindJobs %}
+{% load i18n static %}
+<section>
+  <div class="search-container">
+    <div class="container">
+      <div class="row" >
+        <div class="col-md-12">
+          <h1>Find the job that fits your life</h1><br><h2>More than <strong>120</strong> jobs are waiting to Kickstart your career!</h2>
+          <div class="content">
+            <form method="post" >
+              {% csrf_token%}
+              <div class="row">
+                <div class="col-md-4 col-sm-6">
+                  <div class="form-group">
+                    <input class="form-control" type="text" placeholder="job title / keywords / company name" value="{{keywords}}" name="search1">
+                    <i class="ti-time"></i>
+                  </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                  <div class="form-group">
+                    <input class="form-control" type="text" placeholder="city / province / zip code" value="{{city}}" name="search2">
+                    <i class="ti-location-pin"></i>
+                  </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                  <div class="search-category-container">
+                    <label class="styled-select">
+                      <select class="dropdown-product selectpicker" name="categorie">
+                        {% if cat %}
+                        <option value="{{cat.id}}">{{cat.intitule}}</option>
+                        {% endif %}
+                        <option value="">All Categories</option>
+                        {% for cat in categories %}
+                          <option value="{{cat.id}}">{{cat.intitule}}</option>
+                        {% endfor %}
+                      </select>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-1 col-sm-6">
+                  <button type="submit" class="btn btn-search-icon"><i class="ti-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="find-job section">
+    <div class="container">
+      <h2 class="section-title">Hot Jobs</h2>
+      <div class="row">
+        <div class="col-md-12">
+          {% for job in page_obj %}
+          {% now "Y-m-d" as current_year %}
+            <div class="job-list">
+                <div class="thumb">
+                <a href="{% url 'job-details' job.id %}"><img src="{{MEDIA_URL}}{{job.annonce.icone}}" alt=""></a>
+                </div>
+                <div class="job-list-content">
+                <h4><a href="{% url 'job-details' job.id %}">{{job.intitule}}</a><span class="full-time">{{job.forme.alias}}</span>
+                  {% if current_year > job.date_expiration|date:"Y-m-d" %}<span class="expired">Expired</span>{% endif %}</h4>
+                <p>{{job.annonce.name}} recherche {{job.nombre}} profil(s)  {{job.intitule}} 
+                  pour un {{job.forme.intitule}} ({{job.forme.alias}}) avec une experience minimum de {{job.experience_min}} mois</p>
+                <div class="job-tag">
+                    <div class="pull-left">
+                    <div class="meta-tag">
+                        <span><a href="browse-categories.html"><i class="ti-desktop"></i>{% for cat in job.categories.all %} {{cat}} {% endfor%}</a></span>
+                        <span><i class="ti-location-pin"></i>{% for ville in job.villes.all %} {{ville}} {% endfor%}</span>
+                        <span><i class="ti-time"></i>{{job.date_publication}}</span>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="col-md-12">
+          <div class="pagination pull-right">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+          </div>
+        </div>
+        <!--div class="col-md-12">
+          <div class="showing pull-left">
+            <a href="#">Showing <span>6-10</span> Of 24 Jobs</a>
+          </div>                    
+          <ul class="pagination pull-right">              
+            <li class="active"><a href="#" class="btn btn-common" ><i class="ti-angle-left"></i> prev</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li class="active"><a href="#" class="btn btn-common">Next <i class="ti-angle-right"></i></a></li>
+          </ul>
+        </div-->
+      </div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block FeaturedJobs %}
+{% load i18n static %}
+
+<!--section class="featured-jobs section">
+    <div class="container">
+      <h2 class="section-title">
+        Featured Jobs
+      </h2>
+      <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="featured-item">
+            <div class="featured-wrap">
+              <div class="featured-inner">
+                <figure class="item-thumb">
+                  <a class="hover-effect" href="job-page.html">
+                    <img src="{% static 'assets/img/features/img-1.jpg' %}" alt="">
+                  </a>
+                </figure>
+                <div class="item-body">
+                  <h3 class="job-title"><a href="job-page.html">Graphic Designer</a></h3>
+                  <div class="adderess"><i class="ti-location-pin"></i> Dallas, United States</div>
+                </div>
+              </div>
+            </div>
+            <div class="item-foot">
+              <span><i class="ti-calendar"></i> 4 months ago</span>
+              <span><i class="ti-time"></i> Full Time</span>
+              <div class="view-iocn">
+                <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="featured-item">
+            <div class="featured-wrap">
+              <div class="featured-inner">
+                <figure class="item-thumb">
+                  <a class="hover-effect" href="job-page.html">
+                    <img src="assets/img/features/img-2.jpg" alt="">
+                  </a>
+                </figure>
+                <div class="item-body">
+                  <h3 class="job-title"><a href="job-page.html">Software Engineer</a></h3>
+                  <div class="adderess"><i class="ti-location-pin"></i> Delaware, United States</div>
+                </div>
+              </div>
+            </div>
+            <div class="item-foot">
+              <span><i class="ti-calendar"></i> 5 months ago</span>
+              <span><i class="ti-time"></i> Part Time</span>
+              <div class="view-iocn">
+                <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="featured-item">
+            <div class="featured-wrap">
+              <div class="featured-inner">
+                <figure class="item-thumb">
+                  <a class="hover-effect" href="job-page.html">
+                    <img src="assets/img/features/img-3.jpg" alt="">
+                  </a>
+                </figure>
+                <div class="item-body">
+                  <h3 class="job-title"><a href="job-page.html">Managing Director</a></h3>
+                  <div class="adderess"><i class="ti-location-pin"></i> NY, United States</div>
+                </div>
+              </div>
+            </div>
+            <div class="item-foot">
+              <span><i class="ti-calendar"></i> 3 months ago</span>
+              <span><i class="ti-time"></i> Full Time</span>
+              <div class="view-iocn">
+                <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="featured-item">
+            <div class="featured-wrap">
+              <div class="featured-inner">
+                <figure class="item-thumb">
+                  <a class="hover-effect" href="job-page.html">
+                    <img src="assets/img/features/img-3.jpg" alt="">
+                  </a>
+                </figure>
+                <div class="item-body">
+                  <h3 class="job-title"><a href="job-page.html">Graphic Designer</a></h3>
+                  <div class="adderess"><i class="ti-location-pin"></i> Washington, United States</div>
+                </div>
+              </div>
+            </div>
+            <div class="item-foot">
+              <span><i class="ti-calendar"></i> 1 months ago</span>
+              <span><i class="ti-time"></i> Part Time</span>
+              <div class="view-iocn">
+                <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="featured-item">
+            <div class="featured-wrap">
+              <div class="featured-inner">
+                <figure class="item-thumb">
+                  <a class="hover-effect" href="job-page.html">
+                    <img src="assets/img/features/img-2.jpg" alt="">
+                  </a>
+                </figure>
+                <div class="item-body">
+                  <h3 class="job-title"><a href="job-page.html">Software Engineer</a></h3>
+                  <div class="adderess"><i class="ti-location-pin"></i> Dallas, United States</div>
+                </div>
+              </div>
+            </div>
+            <div class="item-foot">
+              <span><i class="ti-calendar"></i> 6 months ago</span>
+              <span><i class="ti-time"></i> Full Time</span>
+              <div class="view-iocn">
+                <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <div class="featured-item">
+            <div class="featured-wrap">
+              <div class="featured-inner">
+                <figure class="item-thumb">
+                  <a class="hover-effect" href="job-page.html">
+                    <img src="assets/img/features/img-1.jpg" alt="">
+                  </a>
+                </figure>
+                <div class="item-body">
+                  <h3 class="job-title"><a href="job-page.html">Managing Director</a></h3>
+                  <div class="adderess"><i class="ti-location-pin"></i> NY, United States</div>
+                </div>
+              </div>
+            </div>
+            <div class="item-foot">
+              <span><i class="ti-calendar"></i> 7 months ago</span>
+              <span><i class="ti-time"></i> Part Time</span>
+              <div class="view-iocn">
+                <a href="job-page.html"><i class="ti-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section--->
+{% endblock %}
+
