@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-from decouple import config
 import cloudinary
 import cloudinary_storage
 
@@ -31,7 +30,7 @@ SECRET_KEY = 'lf)0u_#hzfnx@(b^h9s2g3epblev8if1p@d1^hwisoxz=w6!n='
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = False
 if os.environ.get('ENV') == 'PRODUCTION':
-    DEBUG = True
+    DEBUG = False
 else:
     DEBUG = True
 
