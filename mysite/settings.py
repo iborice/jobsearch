@@ -159,12 +159,13 @@ if os.environ.get('ENV') == 'PRODUCTION':
     
     STATIC_ROOT = os.path.join(PROJET_ROOT, 'staticfiles')
     STATIC_URL = '/static/'
-    
+
     STATICFILES_DIRS = (
     os.path.join(PROJET_ROOT, 'static'),
 )
 
 else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
