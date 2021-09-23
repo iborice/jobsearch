@@ -155,12 +155,14 @@ MEDIA_URL = '/media/'
 
 if os.environ.get('ENV') == 'PRODUCTION':
     # Static files settings
-    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    PROJET_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    STATIC_ROOT = os.path.join(PROJET_ROOT, 'staticfiles')
     STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+    
     STATICFILES_DIRS = (
-        os.path.join(PROJECT_ROOT, 'static'),
-    )
+    os.path.join(PROJET_ROOT, 'static'),
+)
 
 else:
     STATIC_URL = '/static/'
