@@ -152,9 +152,9 @@ USE_TZ = True
 
 # Cloudinary stuff
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': config('camerjobs', default=""),
-    'API_KEY': config('663839238664897', default=""),
-    'API_SECRET': config('nipovoF8FxC6wVrY88faeSAS1t8', default=""),
+    'CLOUD_NAME': 'camerjobs',
+    'API_KEY': '663839238664897',
+    'API_SECRET': 'nipovoF8FxC6wVrY88faeSAS1t8',
 }
 
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
