@@ -65,11 +65,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-if os.environ.get('ENV') == 'PRODUCTION':
-        # ...
-        # Simplified static file serving.
-        # https://warehouse.python.org/project/whitenoise/
-        STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 ROOT_URLCONF = 'mysite.urls'
@@ -155,14 +150,14 @@ MEDIA_URL = '/media/'
 
 if os.environ.get('ENV') == 'PRODUCTION':
     # Static files settings
-    PROJET_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    
-    STATIC_ROOT = os.path.join(PROJET_ROOT, 'staticfiles')
     STATIC_URL = '/static/'
+    PROJET_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
     STATICFILES_DIRS = (
     os.path.join(PROJET_ROOT, 'static'),
-)
+    )
+    STATIC_ROOT = os.path.join(PROJET_ROOT, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 else:
     STATIC_URL = '/static/'
