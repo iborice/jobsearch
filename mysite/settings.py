@@ -32,7 +32,7 @@ if os.environ.get('ENV') == 'PRODUCTION':
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','camerjobs.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','.herokuapp.com']
 
 
 # Application definition
@@ -165,7 +165,6 @@ if os.environ.get('ENV') == 'PRODUCTION':
 )
 
 else:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATIC_URL = '/static/'
     STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static'),
