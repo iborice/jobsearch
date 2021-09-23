@@ -59,7 +59,8 @@
           {% now "Y-m-d" as current_year %}
             <div class="job-list">
                 <div class="thumb">
-                <a href="{% url 'job-details' job.id %}"><img src="{{job.annonce.icone.url}}" alt=""></a>
+                <a href="{% url 'job-details' job.id %}"><img src="{{job.annonce.icone.url}}" alt="{{ 
+                  job.annonce.icone.name }}"></a>
                 </div>
                 <div class="job-list-content">
                 <h4><a href="{% url 'job-details' job.id %}">{{job.intitule}}</a><span class="full-time">{{job.forme.alias}}</span>
