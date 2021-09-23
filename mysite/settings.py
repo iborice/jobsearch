@@ -28,11 +28,11 @@ SECRET_KEY = 'lf)0u_#hzfnx@(b^h9s2g3epblev8if1p@d1^hwisoxz=w6!n='
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = False
 if os.environ.get('ENV') == 'PRODUCTION':
-    DEBUG = False
+    DEBUG = True
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1','localhost','camerjobs.herokuapp.com']
 
 
 # Application definition
