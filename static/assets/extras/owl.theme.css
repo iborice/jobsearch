@@ -7,7 +7,7 @@
 	color: #FFF;
 	display: inline-block;
 	zoom: 1;
-	*display: inline;/*IE7 life-saver */
+	*display: inline;
 	margin: 5px;
 	padding: 3px 10px;
 	font-size: 12px;
@@ -15,12 +15,12 @@
 	-moz-border-radius: 30px;
 	border-radius: 30px;
 	background: #869791;
-	filter: Alpha(Opacity=50);/*IE7 fix*/
+	filter: Alpha(Opacity=50);
 	opacity: 0.5;
 }
 
 .owl-theme .owl-controls.clickable .owl-buttons div:hover{
-	filter: Alpha(Opacity=100);/*IE7 fix*/
+	filter: Alpha(Opacity=100);
 	opacity: 1;
 	text-decoration: none;
 }
@@ -46,7 +46,7 @@
 
 .owl-theme .owl-controls .owl-page.active span,
 .owl-theme .owl-controls.clickable .owl-page:hover span{
-	filter: Alpha(Opacity=100);/*IE7 fix*/
+	filter: Alpha(Opacity=100);
 	opacity: 1;
 }
 
